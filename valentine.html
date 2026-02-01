@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Kamu ❤️</title>
+<link rel="stylesheet" href="valentine.css">
+</head>
+<body>
+
+<div class="container" id="questionPage">
+    <h1 id="questionText">Kamu mau jadi pacarku selamanya? 💕</h1>
+    <p id="counter">NO ditolak: 0 kali 😆</p>
+
+    <div class="buttons" id="buttonArea">
+        <button id="yes">YES 💖</button>
+        <button id="no">NO 💔</button>
+    </div>
+</div>
+
+<div class="love-page" id="lovePage">
+    <h2>Aku Sayang Kamu ❤️</h2>
+    <p>
+        Terima kasih sudah memilih YES 🤍  
+        <br><br>
+        Aku janji akan selalu ada  
+        buat kamu, hari ini dan selamanya 💞
+    </p>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const buttonArea = document.getElementById("buttonArea");
+const counter = document.getElementById("counter");
+const questionText = document.getElementById("questionText");
+const questionPage = document.getElementById("questionPage");
+const lovePage = document.getElementById("lovePage");
+
+let noCount = 0;
+let yesSize = 1;
+
+const texts = [
+  "Kamu mau jadi pacarku selamanya? 💕",
+  "Yakin mau nolak aku? 🥺",
+  "NO gak berlaku 😆",
+  "Ayolah YES aja 💖",
+  "Udah ketauan jawabannya 😏"
+];
+
+// KLIK NO → pindah + counter + teks
+noBtn.addEventListener("click", () => {
+    noCount++;
+    counter.innerText = `NO ditolak: ${noCount} kali 😆`;
+    questionText.innerText = texts[Math.min(noCount, texts.length - 1)];
+
+    const maxX = buttonArea.clientWidth - noBtn.offsetWidth;
+    const maxY = buttonArea.clientHeight - noBtn.offsetHeight;
+
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+});
+
+// KLIK YES → BARU MEMBESAR
+yesBtn.addEventListener("click", () => {
+    yesSize += 0.25;
+
+    yesBtn.style.width = 120 * yesSize + "px";
+    yesBtn.style.height = 48 * yesSize + "px";
+    yesBtn.style.fontSize = 18 * yesSize + "px";
+
+    // kalau sudah besar → fullscreen
+    if (yesSize >= 3) {
+        yesBtn.classList.add("full-yes");
+        yesBtn.innerText = "AKU MILIKMU ❤️";
+
+        setTimeout(() => {
+            questionPage.style.display = "none";
+            lovePage.style.display = "flex";
+        }, 700);
+    }
+});
+</script>
+
+</body>
+</html>
